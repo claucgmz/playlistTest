@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="routerApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Nearsoft Test</title>
+        <link href="/style.css" rel="stylesheet">
+        <link href="/icons/css/fontawesome.css" rel="stylesheet">
+    </head>
+
+    <body ng-controller="PlaylistController as playlist">
+
+        <nav class="nav-container">
+            <ul>
+                <li class="logo">
+                    <img src="/images/ns-logo.png"/>
+                </li>
+                <li class="title">PlayList</li>
+                <li class="options-container">
+                    <button type="button" class="add demo-icon icon-plus" ng-click="playlist.addElement()"></button>
+                    <button type="button" class="load demo-icon icon-download" ng-click="playlist.loadElements()"></button>
+                    <button type="button" class="save demo-icon icon-floppy" ng-click="playlist.saveElements()"></button>
+                </li>
+            </ul>
+        </nav>
+        <main class="main-container">
+            <ol>
+                <li ng-repeat="singleplaylist in playlist.playlist" ng-class="singleplaylist.checked ? 'striked' : ''">
+                    <input type="checkbox" ng-model="strikeThrough" ng-change="playlist.lineThrough($index)"/>
+                    <strong class="title">{{singleplaylist.name}}</strong>
+                    <div class="options-container">
+                        <button type="button" class="remove demo-icon icon-pencil" ng-click="playlist.editElement($index)"></button>
+                        <button type="button" class="edit demo-icon icon-trash-empty" ng-click="playlist.deleteElement($index)"></button>
+                    </div>
+                </li>
+            </ol>
+
+        </main>
+
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="/app.js"></script>
+    </body>
+</html>
+
