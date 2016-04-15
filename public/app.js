@@ -4,7 +4,7 @@
 angular.module('routerApp', [])
     .controller('PlaylistController', playlistController)
 
-function playlistController($http){
+function playlistController($http, dataService){
     var vm = this;
 
     vm.playlist = [];
@@ -44,30 +44,18 @@ function playlistController($http){
     }
 
     function loadElements(){
-        $http({
-            method: 'GET',
-            url: '/api/load'
-        }).then(function successCallback(response) {
-            vm.playlist = vm.playlist.concat(response.data.items);
-
-        }, function errorCallback(response) {
-            console.log(response);
+        dataService.loadElements().then(function(data){
+            vm.playlist = vm.playlist.concat(data);
         });
     }
 
     function saveElements(){
-        $http({
-            method: 'POST',
-            url: '/api/save',
-            data : { items: vm.playlist }
-        }).then(function successCallback(response) {
+        dataService.saveElements({ items: vm.playlist }).then(function(data){
             alert('La información ha sido guardada');
-            console.log(response);
-
-        }, function errorCallback(response) {
-            alert('Hubo un error. La información no ha sido guardada');
-            console.log(response);
+            console.log(data);
         });
     }
+
+
 
 }
